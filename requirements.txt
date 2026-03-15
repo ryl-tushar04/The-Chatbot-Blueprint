@@ -8,3 +8,4 @@ duckduckgo-search
 python-dotenv
 groq
 pypdf
+tavily-python
