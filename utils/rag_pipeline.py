@@ -27,4 +27,4 @@ def answer_query(query, mode="concise", provider="openai"):
     Instruction:
     {instruction}
     """
-    return generate_response(prompt, provider)
+    return generate_response(prompt)
