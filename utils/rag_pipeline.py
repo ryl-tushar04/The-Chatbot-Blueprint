@@ -1,4 +1,4 @@
-from utils.vector_store import vectorstore
+from utils.vector_store import vectorStore
 from utils.web_search import search_web
 from models.llm import generate_response
 
