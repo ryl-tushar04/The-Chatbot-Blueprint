@@ -155,9 +155,7 @@ The application will start in your browser.
 - Streamlit
 - FAISS
 - SentenceTransformers
-- OpenAI API
 - Groq API
-- Google Gemini API
 - DuckDuckGo Search
 
 ---
