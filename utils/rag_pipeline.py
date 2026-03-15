@@ -2,6 +2,9 @@ from utils.vector_store import VectorStore
 from utils.web_search import search_web
 from models.llm import generate_response
 
+def add_documents(chunks):
+    vector_store.add_documents(chunks)
+    
 def answer_query(query, mode="concise"):
 
     docs = VectorStore.search(query)
