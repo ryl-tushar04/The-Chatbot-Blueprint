@@ -2,10 +2,9 @@ from utils.vector_store import vectorStore
 from utils.web_search import search_web
 from models.llm import generate_response
 
-vector_store = VectorStore()
 def answer_query(query, mode="concise"):
 
-    docs = vector_store.search(query)
+    docs = vectorStore.search(query)
 
     # If no relevant documents found → use web search
     if not docs or len(docs) == 0:
@@ -19,16 +18,16 @@ def answer_query(query, mode="concise"):
         instruction = "Provide a detailed explanation."
 
     prompt = f"""
-Use the following context to answer the question.
+    Use the following context to answer the question.
 
-Context:
-{context}
+    Context:
+    {context}
 
-Question:
-{query}
+    Question:
+    {query}
 
-Instruction:
-{instruction}
-"""
+    Instruction:
+    {instruction}
+     """
 
     return generate_response(prompt)
