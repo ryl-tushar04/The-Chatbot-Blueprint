@@ -1,50 +1,80 @@
-
 # Project Overview
 
-Large Language Models can sometimes produce **hallucinated or outdated information**.
-An intelligent chatbot built using Streamlit, Retrieval-Augmented Generation (RAG), Groq LLM, and Tavily Web Search.
-The system retrieves information from local documents and real-time web search to generate accurate and contextual responses.
-The system allows users to:
+Large Language Models can sometimes produce **hallucinated or outdated responses** when they lack external knowledge.
 
-- Upload knowledge documents
-- Ask questions based on those documents
-- Fetch real-time information from the web
-- Switch between concise and detailed responses
+To solve this, the chatbot integrates:
+
+- **RAG (Retrieval-Augmented Generation)** for document-based answers
+- **Tavily Web Search** for real-time internet information
+
+This hybrid approach ensures responses are **context-aware, grounded, and up-to-date**.
 
 ---
 
-# Features
+# Key Features
 
 ## Retrieval-Augmented Generation (RAG)
-- Documents are split into chunks
-- Text embeddings generated using **SentenceTransformers**
-- Vectors stored in **FAISS**
-- Relevant chunks retrieved during query time
 
-## Live Web Search
-If document context is insufficient, the chatbot performs a **real-time web search** to answer queries.
+Workflow:
 
-## Multiple LLM Providers
-The chatbot supports:
-- Groq
-- OpenAI
-- Google Gemini
+1. Upload a document (TXT/PDF)
+2. Extract text
+3. Split into chunks
+4. Convert chunks into embeddings
+5. Store vectors in FAISS
+6. Retrieve relevant chunks during queries
 
-Users can choose the provider directly from the UI.
+Embedding model:
 
-## Response Modes
-Users can toggle between:
+SentenceTransformers (all-MiniLM-L6-v2)
 
-- **Concise Mode** – Short summarized responses
-- **Detailed Mode** – In-depth explanations
+---
 
-## Interactive UI
-Built using **Streamlit** with:
+## Tavily Web Search Integration
 
-- Chat interface
-- File upload support
-- Model selection
-- Response mode toggle
+When the chatbot cannot find relevant document context, it automatically performs **real-time web search using Tavily**.
+
+Examples:
+
+- weather in delhi
+- latest AI news
+- who is the prime minister of India
+
+---
+
+## Groq LLM Integration
+
+The chatbot uses Groq's ultra-fast inference engine.
+
+Model used:
+
+llama-3.3-70b-versatile
+
+Benefits:
+
+- Low latency responses
+- Strong reasoning capabilities
+- Free developer access
+
+---
+
+# System Architecture
+
+User Query
+   ↓
+Streamlit UI
+   ↓
+Vector Search (FAISS)
+   ↓
+Context Found?
+   ↓          ↓
+ Yes          No
+  ↓            ↓
+RAG Context   Tavily Web Search
+       ↓
+     Groq LLM
+       ↓
+   Final Response
 
 ---
 
@@ -73,12 +103,12 @@ project/
 
 # Installation
 
-## Clone the repository
+Clone the repository
 
 git clone <repository-url>
 cd project
 
-## Install dependencies
+Install dependencies
 
 pip install -r requirements.txt
 
@@ -86,11 +116,12 @@ pip install -r requirements.txt
 
 # Environment Setup
 
-Create a `.env` file in the root directory.
+Create a `.env` file locally:
 
-OPENAI_API_KEY=your_openai_key
 GROQ_API_KEY=your_groq_key
-GEMINI_API_KEY=your_gemini_key
+TAVILY_API_KEY=your_tavily_key
+
+Do **not commit `.env` to GitHub**.
 
 ---
 
@@ -98,54 +129,16 @@ GEMINI_API_KEY=your_gemini_key
 
 streamlit run app.py
 
-The application will start in your browser.
+The application will open in your browser.
 
 ---
 
-# How It Works
+# Deployment (Streamlit Cloud)
 
-1. **Upload Document**
-   - User uploads TXT or PDF file
+Add the following secrets in the Streamlit Cloud dashboard:
 
-2. **Document Processing**
-   - Text extraction
-   - Chunking
-   - Embedding generation
-   - Storage in FAISS vector database
-
-3. **Query Processing**
-   - Retrieve relevant chunks
-   - If no context found → perform web search
-   - Send context + query to LLM
-   - Generate final response
-
----
-
-# Challenges Faced
-
-- Handling PDF text extraction
-- Managing empty embeddings and vector index errors
-- Configuring multiple LLM provider APIs
-- Handling LLM model deprecations
-- Ensuring fallback when no documents exist
-
----
-
-# Assumptions
-
-- Uploaded documents contain readable text
-- Valid API keys are provided
-- Internet connection available for web search
-
----
-
-# Future Improvements
-
-- Persistent vector DB using **ChromaDB**
-- Support for **DOCX, CSV, and URLs**
-- Chat memory
-- Better query routing between RAG and web search
-- UI improvements and citations
+GROQ_API_KEY="your_key"
+TAVILY_API_KEY="your_key"
 
 ---
 
@@ -155,12 +148,28 @@ The application will start in your browser.
 - Streamlit
 - FAISS
 - SentenceTransformers
-- Groq API
-- DuckDuckGo Search
+- Groq LLM
+- Tavily Search API
+- NumPy
+
+---
+
+# Future Improvements
+
+- Persistent vector database (ChromaDB)
+- Support for DOCX, CSV, URLs
+- Conversation memory
+- Tool-based reasoning
+- Source citations
 
 ---
 
 # Conclusion
 
-This project demonstrates how **LLMs can be augmented with external knowledge sources** to create reliable AI systems.
-Combining **RAG + Web Search + Multi‑LLM support** enables the chatbot to deliver accurate, context-aware responses.
+This project demonstrates how **LLMs can be enhanced with external knowledge sources** to build reliable AI systems.
+
+By combining:
+
+- Retrieval-Augmented Generation
+- Tavily Web Search
+- Groq LLM
