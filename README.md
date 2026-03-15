@@ -2,7 +2,6 @@
 # Project Overview
 
 Large Language Models can sometimes produce **hallucinated or outdated information**.
-To solve this problem, this chatbot integrates **Retrieval-Augmented Generation (RAG)** and **Live Web Search** so that responses are grounded in real data.
 An intelligent chatbot built using Streamlit, Retrieval-Augmented Generation (RAG), Groq LLM, and Tavily Web Search.
 The system retrieves information from local documents and real-time web search to generate accurate and contextual responses.
 The system allows users to:
