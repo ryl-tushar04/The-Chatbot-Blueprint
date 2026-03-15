@@ -9,7 +9,6 @@ def add_documents(chunks):
 
 def answer_query(query, mode="concise"):
     docs = vector_store.search(query)
-
     if not docs or len(docs) == 0:
         context = search_web(query)
     else:
@@ -21,16 +20,19 @@ def answer_query(query, mode="concise"):
         instruction = "Provide a detailed explanation."
 
     prompt = f"""
-    Use the following context to answer the question.
+You are an AI assistant.
 
-    Context:
-    {context}
+Use the provided context to answer the question.
+If the context is from web search, provide the most recent information.
 
-    Question:
-    {query}
+Context:
+{context}
 
-    Instruction:
-    {instruction}
-     """
+Question:
+{query}
+
+Instruction:
+{instruction}
+"""
 
     return generate_response(prompt)
