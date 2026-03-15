@@ -3,13 +3,11 @@ from config.config import GROQ_API_KEY
 
 groq_client = Groq(api_key=GROQ_API_KEY)
 
-def generate_response(prompt, provider="openai"):
+def generate_response(prompt):
 
-   if provider == "groq":
-        completion = groq_client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return completion.choices[0].message.content
+    completion = groq_client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}]
+    )
 
-   return "Model provider not supported."
+    return completion.choices[0].message.content
