@@ -1,10 +1,10 @@
-from utils.vector_store import vectorStore
+from utils.vector_store import VectorStore
 from utils.web_search import search_web
 from models.llm import generate_response
 
 def answer_query(query, mode="concise"):
 
-    docs = vectorStore.search(query)
+    docs = VectorStore.search(query)
 
     # If no relevant documents found → use web search
     if not docs or len(docs) == 0:
