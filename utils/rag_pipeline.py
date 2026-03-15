@@ -1,8 +1,8 @@
-from utils.vector_store import vector_store
+from utils.vector_store import vectorstore
 from utils.web_search import search_web
 from models.llm import generate_response
 
-
+vector_store = VectorStore()
 def answer_query(query, mode="concise"):
 
     docs = vector_store.search(query)
