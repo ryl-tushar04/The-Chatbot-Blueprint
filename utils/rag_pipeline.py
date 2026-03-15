@@ -5,7 +5,7 @@ from models.llm import generate_response
 vector_store = VectorStore()
 def add_documents(chunks):
     vector_store.add_documents(chunks)
-def answer_query(query, mode="concise", provider="openai"):
+def answer_query(query, mode="concise"):
     docs = vector_store.search(query)
     if not docs:
         context = search_web(query)
