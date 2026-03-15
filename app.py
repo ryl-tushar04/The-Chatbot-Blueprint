@@ -35,7 +35,7 @@ for message in st.session_state.messages:
 query = st.chat_input("Ask something")
 if query:
     st.chat_message("user").write(query)
-    response = answer_query(query, mode, provider)
+    response = answer_query(query, mode)
     st.chat_message("assistant").write(response)
     st.session_state.messages.append({"role": "user", "content": query})
     st.session_state.messages.append({"role": "assistant", "content": response})
